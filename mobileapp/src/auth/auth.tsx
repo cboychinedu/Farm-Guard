@@ -13,7 +13,7 @@ const Auth = () => {
         // Using try catch block 
         try {
             // Read the stored token from device storage
-            const storedToken = await SecureStore.getItemAsync("farmGuardToken") || await SecureStore.getItemAsync("driversToken"); 
+            const storedToken = await SecureStore.getItemAsync("farmGuardToken");  
             
             // Setting the passengers or drivers token
             setToken(storedToken); 

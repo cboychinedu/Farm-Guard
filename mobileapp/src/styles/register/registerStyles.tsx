@@ -1,5 +1,11 @@
 // Importing the necessary modules 
 import { StyleSheet, Dimensions } from "react-native";
+import { 
+  useFonts, 
+  Poppins_400Regular, 
+  Poppins_600SemiBold, 
+  Poppins_700Bold 
+} from '@expo-google-fonts/poppins';
 
 // Getting the width and height of the mobile device 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
@@ -31,26 +37,29 @@ const styles = StyleSheet.create({
     },
     headerTextDiv: {
         marginBottom: 10,
-        textAlign: 'center'
+        textAlign: 'center',
+        fontFamily: 'Poppins_700Bold'
     },
     headerText: {
         textAlign: 'center',
         fontSize: 30,
         fontWeight: "bold",
         color: "green",
+        fontFamily: 'Poppins_700Bold'
     },
     messageDisplayDiv: {
         alignItems: 'center',
         color: "#393d3a",
         fontSize: 18,
-        fontWeight: "bold"
+        fontWeight: "bold", 
+        fontFamily: "Poppins_400Regular"
     },
     registerContainer: {
         backgroundColor: "#e9dbc8",
         alignItems: "flex-start",
         padding: 25,
         width: SCREEN_WIDTH,
-        height: SCREEN_HEIGHT
+        flex: 1,
     },
     input: {
         width: SCREEN_WIDTH * 0.87,
@@ -64,6 +73,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         borderTopEndRadius: 5,
         borderBottomColor: "#79a885",
+        fontFamily: "Poppins_400Regular", 
     },
     button: {
         width: SCREEN_WIDTH * 0.87,
@@ -78,6 +88,7 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 19,
         fontWeight: 'bold',
+        fontFamily: "Poppins_400Regular"
     },
     alreadyHaveAnAccountDiv: {
         alignSelf: "center",
@@ -85,13 +96,17 @@ const styles = StyleSheet.create({
         alignItems: "center", 
         marginTop: 15,
         flexDirection: "row", 
+        fontFamily: "Poppins_400Regular"
     }, 
     alreadyHaveAnAccountText: {
         fontSize: 18,
+        fontFamily: "Poppins_400Regular"
     },  
     signInText: {
         fontWeight: "bold", 
         fontSize: 18,  
+        color: "#42a95c",
+        fontFamily: "Poppins_400Regular"
     }
 });
 
