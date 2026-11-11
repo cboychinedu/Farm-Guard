@@ -1,14 +1,19 @@
 // Importing the necessary modules 
 import React from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   TouchableOpacity,
   SafeAreaView
 } from 'react-native';
+import {
+  useFonts,
+  Poppins_400Regular,
+  Poppins_600SemiBold,
+  Poppins_700Bold
+} from '@expo-google-fonts/poppins';
 import { useRouter } from 'expo-router';
-import styles from "@/styles/landingPage/landingPageStyles"; 
+import styles from "@/styles/landingPage/landingPageStyles";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 // Define your navigation stack parameter list
@@ -34,6 +39,18 @@ const LandingScreen: React.FC<LandingScreenProps> = ({ navigation }) => {
   // Creating the router object 
   const router = useRouter();
 
+  // Load the poppins font family 
+  let [fontsLoaded] = useFonts({
+    Poppins_400Regular,
+    Poppins_600SemiBold,
+    Poppins_700Bold,
+  })
+
+  // IMPORTANT: Wait for fonts to load before rendering the UI
+  if (!fontsLoaded) {
+    return null;
+  }
+
   // Rendering the component 
   return (
     <SafeAreaView style={styles.container}>
@@ -57,14 +74,14 @@ const LandingScreen: React.FC<LandingScreenProps> = ({ navigation }) => {
 
         {/* Navigation Buttons */}
         <View style={styles.buttonContainer}>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.primaryButton}
             onPress={() => navigation.navigate('Login')}
           >
             <Text style={styles.primaryButtonText}>LOG IN</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.secondaryButton}
             onPress={() => router.push('/(auth)/register' as any)}
           >

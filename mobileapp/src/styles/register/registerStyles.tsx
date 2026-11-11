@@ -1,11 +1,5 @@
 // Importing the necessary modules 
 import { StyleSheet, Dimensions } from "react-native";
-import { 
-  useFonts, 
-  Poppins_400Regular, 
-  Poppins_600SemiBold, 
-  Poppins_700Bold 
-} from '@expo-google-fonts/poppins';
 
 // Getting the width and height of the mobile device 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');

@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     color: '#2E7D32',
     letterSpacing: 0.5,
+    fontFamily: 'Poppins_700Bold'
   },
   textContainer: {
     alignItems: 'center',
@@ -50,12 +51,14 @@ const styles = StyleSheet.create({
     color: '#1B5E20',
     marginBottom: 10,
     textAlign: 'center',
+    fontFamily: 'Poppins_700Bold'
   },
   subtitle: {
     fontSize: 16,
     color: '#424242',
     textAlign: 'center',
     lineHeight: 24,
+    fontFamily: "Poppins_400Regular"
   },
   buttonContainer: {
     width: '100%',
@@ -78,6 +81,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     letterSpacing: 1,
+    fontFamily: "Poppins_400Regular"
   },
   secondaryButton: {
     backgroundColor: 'transparent',
@@ -92,6 +96,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     letterSpacing: 1,
+    fontFamily: "Poppins_400Regular"
   },
 });
 
