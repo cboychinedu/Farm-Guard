@@ -1,3 +1,23 @@
+/* =================================================================
+ * Author: Engr. Mbonu Chinedum 
+ * Date Created: 2026-11-11 10:54 AM 
+ * Date Modified: 2026-11-11 10:54 AM
+ * Project Name: Farm Guard
+ * Location: Nigeria (Tinubu Administration)
+ * * LICENSE: Creative Commons Attribution-NonCommercial 4.0 (CC BY-NC)
+ * =================================================================
+ * This software is provided as Open Source for educational and 
+ * personal use. You are free to:
+ * - SHARE: Copy and redistribute the material in any medium.
+ * - ADAPT: Remix, transform, and build upon the material.
+ *
+ * UNDER THE FOLLOWING TERMS:
+ * - ATTRIBUTION: You must give appropriate credit to the author.
+ * - NON-COMMERCIAL: You may NOT use the material for commercial 
+ * purposes. This software cannot be sold or used for profit.
+ * ================================================================= */
+
+
 // Importing the necessary modules 
 import React from 'react';
 import {
@@ -76,7 +96,7 @@ const LandingScreen: React.FC<LandingScreenProps> = ({ navigation }) => {
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.primaryButton}
-            onPress={() => navigation.navigate('Login')}
+            onPress={() => router.push("/(auth)/login" as any)}
           >
             <Text style={styles.primaryButtonText}>LOG IN</Text>
           </TouchableOpacity>

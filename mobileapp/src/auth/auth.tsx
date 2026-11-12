@@ -39,8 +39,7 @@ const Auth = () => {
         // phone storage 
         try {
             // Delete the driver's token and the user's token 
-            await SecureStore.deleteItemAsync("userToken");
-            await SecureStore.deleteItemAsync("driversToken")
+            await SecureStore.deleteItemAsync("farmGuardToken");
 
             // Set the token as a null value
             setToken(null);

@@ -10,30 +10,50 @@ import {
     Pressable,
     TextInput,
     TouchableWithoutFeedback,
-    Keyboard, 
-    KeyboardAvoidingView, 
-    Platform, 
-    ScrollView 
+    Keyboard,
+    KeyboardAvoidingView,
+    Platform,
+    ScrollView,
+    ActivityIndicator,
 } from "react-native";
-import { 
-  useFonts, 
-  Poppins_400Regular, 
-  Poppins_600SemiBold, 
-  Poppins_700Bold 
+import {
+    useFonts,
+    Poppins_400Regular,
+    Poppins_600SemiBold,
+    Poppins_700Bold
 } from '@expo-google-fonts/poppins';
 import { useRouter } from 'expo-router';
-import { Feather } from '@expo/vector-icons'; 
+import { Feather } from '@expo/vector-icons';
 import styles from "@/styles/register/registerStyles";
+import CustomAlert from "@/components/alertBox/alertBox";
+
+// Setting the alert interface 
+interface alertConfigInterface {
+    visible: boolean;
+    type: "success" | "error";
+    title: string;
+    message: string;
+    onConfirm?: () => void;
+}
 
 // Creating the register page 
 const RegisterPage = () => {
     // Creating the router object 
     const router = useRouter();
 
+    // Setting the alert state 
+    const [alertConfig, setAlertConfig] = useState<alertConfigInterface>({
+        visible: false,
+        type: "error",
+        title: "",
+        message: "",
+    });
+
     // Setting some necessary states 
-    const [fullName, setFullName] = useState('');
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [fullName, setFullName] = useState<string>('');
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [loading, setLoading] = useState(false);
 
     // Load the fonts
     let [fontsLoaded] = useFonts({
@@ -43,16 +63,116 @@ const RegisterPage = () => {
     });
 
     // State to toggle password visibility
-    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
+
+    // Creating a function to trigger/show the alert cleanly 
+    const showAlert = (type: "success" | "error", title: string, message: string, onConfirm?: () => void) => {
+        setAlertConfig({
+            visible: true,
+            type,
+            title,
+            message,
+            onConfirm
+        });
+    };
 
     // Creating a function for handling the register 
-    const handleRegister = () => {
-        console.log("Register");
+    const handleRegister = async () => {
+        // Checking the fullname 
+        if (!fullName) {
+            // If the fullname is empty, show the error message 
+            showAlert("error", "Full name is required", "Please enter your fullname");
+            return;
+        }
+
+        // Checking the email field 
+        else if (!email.trim()) {
+            // if the email field is empty, show the error message 
+            showAlert("error", "Email required", "Please enter your email address");
+            return;
+        }
+
+        // Checking that the email contains the @ symbol 
+        else if (!email.includes("@")) {
+            // if the email address does not include the @ symbol 
+            showAlert("error", "Email incomplete", "Please enter a valid email address");
+            return;
+        }
+
+        // Checking the password 
+        else if (!password.trim()) {
+            // if the password field is empty, show the error message 
+            showAlert("error", "Password required", "Please enter your password");
+            return;
+        }
+
+        // Else if all the fields was filled execute the block of code below 
+        else {
+            // Set is loading as true 
+            setLoading(true);  
+
+            // Building the register data 
+            const registerData = JSON.stringify({
+                fullname: fullName.trim(), 
+                email: email.trim(), 
+                password: password.trim()
+            })
+
+            // Getting the server api url 
+            const serverUrl: string = `${process.env.EXPO_PUBLIC_SERVER_URL}/register`;
+
+            // Using try catch block to send the registration data to the backend 
+            try {
+                // Sending the data using fetch request and a method of POST 
+                // request to the backend server 
+                const response = await fetch(serverUrl, {
+                    method: "POST", 
+                    body: registerData, 
+                    headers: { "Content-Type": "application/json"}
+                }); 
+
+                // Converting the response body into a json object 
+                const responseBody = await response.json(); 
+
+                // If the result status is success, execute the block of code below 
+                if (responseBody.status === "success") {
+                    // show the dialog box 
+                    showAlert("success", 
+                        "Registration successful", 
+                        responseBody.message, 
+                        () => router.replace("/(auth)/login" as any)
+                    )
+                }
+
+                // Else if the response body status was not a success message, execute the 
+                // block of code below 
+                else {
+                    // Show the alert message 
+                    showAlert("error", 
+                        "Registration failed", 
+                        responseBody.message || "Please try again"
+                    )
+                }
+            }
+
+            // Catch the error on bad server request, 
+            // execute the block of code below 
+            catch (error: any) {
+                // Display the error message 
+                showAlert("error", "Network error", "Unable to connect to the server. Please try again."); 
+            }
+
+            // Finally stop the loading 
+            finally {
+                // Stop the loading bar 
+                setLoading(false); 
+            }
+        }
     }
 
     // IMPORTANT: Wait for fonts to load before rendering the UI
     if (!fontsLoaded) {
-        return null; 
+        return null;
     }
 
     // Rendering the component 
@@ -62,11 +182,26 @@ const RegisterPage = () => {
             <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={{ flex: 1, width: '100%' }}
-                keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20} 
+                keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
             >
+                {/* Custom Styled Alert Modal */}
+                <CustomAlert
+                    visible={alertConfig.visible}
+                    type={alertConfig.type}
+                    title={alertConfig.title}
+                    message={alertConfig.message}
+                    onClose={() => {
+                        setAlertConfig((prev) => ({ ...prev, visible: false }));
+                        if (alertConfig.onConfirm) {
+                            alertConfig.onConfirm();
+                        }
+                    }}
+                />
+
+                {/* Touchable without feedback */}
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     {/* Added ScrollView so content can scroll when keyboard is open */}
-                    <ScrollView 
+                    <ScrollView
                         contentContainerStyle={{ flexGrow: 1 }}
                         showsVerticalScrollIndicator={false}
                         keyboardShouldPersistTaps="handled"
@@ -137,7 +272,7 @@ const RegisterPage = () => {
                                     placeholderTextColor="#000000"
                                     value={password}
                                     onChangeText={setPassword}
-                                    secureTextEntry={!isPasswordVisible} 
+                                    secureTextEntry={!isPasswordVisible}
                                     style={{ flex: 1, height: '100%', fontFamily: "Poppins_400Regular" }}
                                 />
                                 <TouchableOpacity onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
@@ -158,17 +293,21 @@ const RegisterPage = () => {
                                     ]}
                                     onPress={handleRegister}
                                 >
-                                    <Text style={styles.buttonText}> CREATE ACCOUNT </Text>
+                                    {loading ? (
+                                        <ActivityIndicator size="small" color="#FFFFFF" />
+                                    ) : (
+                                        <Text style={styles.buttonText}> CREATE ACCOUNT </Text>
+                                    )}
                                 </Pressable>
                             </View>
 
                             {/* Adding the already signup text */}
                             <View style={styles.alreadyHaveAnAccountDiv}>
-                                <View> 
+                                <View>
                                     <Text style={styles.alreadyHaveAnAccountText}> Already have an account? </Text>
                                 </View>
                                 <View style={{ marginLeft: -4 }}>
-                                    <Pressable onPress={() => router.push("/(auth)/login" as any)}>
+                                    <Pressable onPress={() => router.replace("/(auth)/login" as any)}>
                                         <Text style={styles.signInText}> Sign In </Text>
                                     </Pressable>
                                 </View>

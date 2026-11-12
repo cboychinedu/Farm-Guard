@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { Stack, useRouter } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { jwtDecode } from "jwt-decode";
-import Auth from "@/auth/auth"; 
+import Auth from "@/auth/auth";
 
 // Keep native splash screen visible while loading auth state
 SplashScreen.preventAutoHideAsync();
@@ -23,15 +23,20 @@ const RootLayout = () => {
 
     // Perform immediate navigation before rendering index UI
     if (token && typeof token === "string" && token.trim().length > 0) {
+      // Using try catch block to decode the token string 
       try {
-        const decodedToken = jwtDecode<{ userType?: string }>(token);
+        // Decoding the token value 
+        const decodedToken = jwtDecode<{ isLoggedIn?: string }>(token);
 
-        if (decodedToken?.userType === "passenger" || decodedToken?.userType === "tokenVerification") {
-          router.replace("/(private)/(passengers)/passengers/dashboard" as any);
-        } else if (decodedToken?.userType === "driver") {
-          router.replace("/(private)/(drivers)/drivers/dashboard" as any);
+        // If the token is decoded, and the isLoggedIn value is true, 
+        // execute the block of code below 
+        if (decodedToken?.isLoggedIn) {
+          // Redirecet the user to the dashboard page 
+          router.replace("/(private)/dashboard/dashboard" as any);
         }
-      } catch (error) {
+      }
+      // Catch the error and log it to the console. 
+      catch (error) {
         console.error("Invalid token on root layout check: ", error);
       }
     }
@@ -46,7 +51,7 @@ const RootLayout = () => {
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="index" options={{ title: "Welcome", headerShown: false }} />
-      {/* <Stack.Screen name="(auth)/login" options={{ title: "Login", headerShown: true }} /> */}
+      <Stack.Screen name="(auth)/login" options={{ title: "Login", headerShown: true }} />
       <Stack.Screen name="(auth)/register" options={{ title: "Register Here", headerShown: true }} />
       {/* <Stack.Screen name="(private)/(passengers)" />
       <Stack.Screen name="(private)/(drivers)" /> */}

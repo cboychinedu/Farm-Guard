@@ -4,7 +4,7 @@
 # Author: Engr. Mbonu Chinedum 
 # Date Created: 2026-11-11 10:54 AM 
 # Date Modified: 2026-11-11 10:54 AM
-# Project Name: FarmGuard
+# Project Name: Farm Guard
 # Location: Nigeria (Tinubu Administration)
 # 
 # LICENSE: Creative Commons Attribution-NonCommercial 4.0 (CC BY-NC)
