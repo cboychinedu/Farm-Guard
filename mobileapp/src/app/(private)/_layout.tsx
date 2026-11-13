@@ -5,6 +5,7 @@ import { View } from 'react-native';
 import COLORS from "@/styles/colors/colors";
 import { Ionicons } from "@expo/vector-icons";
 import LogoutButton from "@/components/logout/logout";
+import UserDrawerModal from "@/components/users/UsersDrawerModel"; 
 
 // Creating the users layout component 
 const UsersLayout = () => {
@@ -105,6 +106,7 @@ const UsersLayout = () => {
 
 
             {/* Resuable Drawer Modal */}
+            <UserDrawerModal visible={menuVisible} onClose={() => setMenuVisible(false)} /> 
         </>
     )
 }
