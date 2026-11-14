@@ -5,6 +5,7 @@ from fastapi import APIRouter
 from .home.homeRoute import homeRouter
 from .login.loginRoute import loginRouter
 from .register.registerRoute import registerRouter
+from .dashboard.dashboardRoute import dashboardRouter
 
 # Creating the API router 
 usersRouter = APIRouter() 
@@ -13,3 +14,4 @@ usersRouter = APIRouter()
 usersRouter.include_router(homeRouter, tags=["Home Page"])
 usersRouter.include_router(loginRouter, prefix="/login", tags=["Login Route"])
 usersRouter.include_router(registerRouter, prefix="/register", tags=["Register Route"])
+usersRouter.include_router(dashboardRouter, prefix="/dashboard", tags=["Dashbaord Route"])
