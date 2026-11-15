@@ -125,20 +125,26 @@ const Dashboard = () => {
         setIsAnalyzing(true);
 
         try {
-            const plantFilename = plantImage.split("/").pop() || "plantImage.jpg";
-
-            // 1. Fetch the local file URI and convert it to a Blob
-            const localFileResponse = await fetch(plantImage);
-            const blob = await localFileResponse.blob();
-
-            // 2. Append the Blob to the FormData (web-standard way)
+            // Append the Blob to the FormData (web-standard way)
             const formData = new FormData();
-            formData.append('plantImage', blob, plantFilename);
 
-            const serverUrl: string = `${process.env.EXPO_PUBLIC_SERVER_URL}/dashboard`;
+            // Extract the file metadata from the image uri 
+            const filename = plantImage.split("/").pop() || "plantImage.jpg"; 
+            const match = /\.(\w+)$/.exec(filename);
+            const fileType = match ? `image/${match[1]}` : `image/jpeg`;
+
+            // Appending the image into the form data  
+            formData.append("plantImage", {
+                uri: Platform.OS === "android" ? plantImage : plantImage.replace("file://", ""), 
+                name: filename, 
+                type: fileType,
+            } as any); 
+            
+            // Getting the server url and the token values 
+            const serverUrl: string = `${process.env.EXPO_PUBLIC_SERVER_URL}/dashboard/`;
             const usersToken = await SecureStore.getItemAsync("farmGuardToken") as string;
 
-            // 3. Send the request
+            // Send the request, and get back the response 
             const response = await fetch(serverUrl, {
                 method: "POST",
                 body: formData,
@@ -148,18 +154,20 @@ const Dashboard = () => {
                 }
             });
 
-            const responseData = await response.json();
+            // 
+            const responseData = await response.json(); 
+            console.log(responseData); 
 
-            if (responseData.detail && responseData.detail.status === "error") {
-                Alert.alert("Error", responseData.detail.message);
-                return;
-            }
+            // if (responseData.detail && responseData.detail.status === "error") {
+            //     Alert.alert("Error", responseData.detail.message);
+            //     return;
+            // }
 
-            console.log(responseData);
-            Alert.alert("Analysis Complete", "Your plant data has been updated.");
+            // console.log(responseData);
+            // Alert.alert("Analysis Complete", "Your plant data has been updated.");
 
-        } catch (error) {
-            console.error("Error analyzing plant:", error);
+        } catch (error:any) {
+            console.log("Error analyzing plant:", error.message);
             Alert.alert("Analysis Failed", "Could not process the image. Please try again.");
         } finally {
             setIsAnalyzing(false);

@@ -4,8 +4,9 @@
 import os 
 import jwt 
 import json 
+from typing import Annotated
 from database.connect import db 
-from fastapi import APIRouter, Form, Depends
+from fastapi import APIRouter, File, UploadFile, Form, Depends
 from middlewares.users.tokenVerification import verifyJwtToken
 from machineLearning.convertStreamToImage import convertImageToByte
 
@@ -13,10 +14,11 @@ from machineLearning.convertStreamToImage import convertImageToByte
 dashboardRouter = APIRouter(); 
 
 # Creating the home page for the dashboard router 
-@dashboardRouter.post("/", dependencies=[Depends(verifyJwtToken)])
-async def dashboardPage(plantImage: str = Form(...), payload: dict = Depends(verifyJwtToken)):
+@dashboardRouter.post("/")
+async def dashboardPage(plantImage: Annotated[UploadFile, File(...)], payload: dict = Depends(verifyJwtToken)):
     # print(payload); 
-    result = convertImageToByte(plantImage); 
-    print(result.shape);  
+    imageBytes = await plantImage.read();  
+    result = convertImageToByte(imageBytes); 
+    print(result);  
     
     return { "success": "Welcome to the dashboard page", "data": payload }
