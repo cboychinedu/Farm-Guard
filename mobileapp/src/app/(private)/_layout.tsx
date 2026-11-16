@@ -53,7 +53,7 @@ const UsersLayout = () => {
                 <Tabs.Screen
                     name="history/history"
                     options={{
-                        title: "Profile",
+                        title: "History",
                         tabBarIcon: ({ focused, color }) => (
                             <Ionicons
                                 size={24}
@@ -61,7 +61,7 @@ const UsersLayout = () => {
                                 color={color as any}
                             />
                         ),
-                        headerTitle: "Profile",
+                        headerTitle: "History",
                     }}
                 />
 
