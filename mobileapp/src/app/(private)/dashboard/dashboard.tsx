@@ -18,14 +18,49 @@ import {
     Image,
     ActivityIndicator
 } from 'react-native';
+import {
+    useFonts,
+    Poppins_400Regular,
+    Poppins_600SemiBold,
+    Poppins_700Bold
+} from '@expo-google-fonts/poppins';
 import * as ImagePicker from 'expo-image-picker';
 import * as SecureStore from "expo-secure-store";
 import React, { useState, useEffect } from 'react';
 import styles from "@/styles/dashboard/dashboardStyles";
-// import AlertBoxStyles from '@/styles/alertBox/alertBoxStyles';
+import CustomAlert from '@/components/alertBox/alertBox';
+import AlertBoxStyles from '@/styles/alertBox/alertBoxStyles';
+
+// Setting the alert interface 
+interface alertConfigInterface {
+    visible: boolean;
+    type: "success" | "error";
+    title: string;
+    message: string;
+    onConfirm?: () => void;
+}
 
 // Creating the dashboard screen component 
 const Dashboard = () => {
+    // Setting the alert state 
+    const [alertConfig, setAlertConfig] = useState<alertConfigInterface>({
+        visible: false,
+        type: "error",
+        title: "",
+        message: "",
+    });
+
+    // Creating a function to trigger/show the alert cleanly 
+    const showAlert = (type: "success" | "error", title: string, message: string, onConfirm?: () => void) => {
+        setAlertConfig({
+            visible: true,
+            type,
+            title,
+            message,
+            onConfirm
+        });
+    };
+
     // Setting some necessary states 
     const [plantImage, setPlantImage] = useState<string | null>(null);
 
@@ -129,17 +164,17 @@ const Dashboard = () => {
             const formData = new FormData();
 
             // Extract the file metadata from the image uri 
-            const filename = plantImage.split("/").pop() || "plantImage.jpg"; 
+            const filename = plantImage.split("/").pop() || "plantImage.jpg";
             const match = /\.(\w+)$/.exec(filename);
             const fileType = match ? `image/${match[1]}` : `image/jpeg`;
 
             // Appending the image into the form data  
             formData.append("plantImage", {
-                uri: Platform.OS === "android" ? plantImage : plantImage.replace("file://", ""), 
-                name: filename, 
+                uri: Platform.OS === "android" ? plantImage : plantImage.replace("file://", ""),
+                name: filename,
                 type: fileType,
-            } as any); 
-            
+            } as any);
+
             // Getting the server url and the token values 
             const serverUrl: string = `${process.env.EXPO_PUBLIC_SERVER_URL}/dashboard/`;
             const usersToken = await SecureStore.getItemAsync("farmGuardToken") as string;
@@ -154,9 +189,28 @@ const Dashboard = () => {
                 }
             });
 
-            // 
-            const responseData = await response.json(); 
-            console.log(responseData); 
+            // Getting the response from the server 
+            const responseData = await response.json();
+            console.log(responseData);
+
+            if (responseData.status === "success") {
+                // Show the alert 
+                showAlert("success", "Analysis Passed", responseData.message); 
+            }
+
+            // Checking the response data 
+            else {
+                // Show the alert message 
+                showAlert(
+                    "error", 
+                    "Analysis Failed",
+                    responseData.message, 
+
+                )
+
+            }
+
+
 
             // if (responseData.detail && responseData.detail.status === "error") {
             //     Alert.alert("Error", responseData.detail.message);
@@ -166,7 +220,7 @@ const Dashboard = () => {
             // console.log(responseData);
             // Alert.alert("Analysis Complete", "Your plant data has been updated.");
 
-        } catch (error:any) {
+        } catch (error: any) {
             console.log("Error analyzing plant:", error.message);
             Alert.alert("Analysis Failed", "Could not process the image. Please try again.");
         } finally {
@@ -182,6 +236,21 @@ const Dashboard = () => {
                 style={styles.keyboardAvoidingView}
                 keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
             >
+
+                {/* Custom Styled Alert Modal */}
+                <CustomAlert
+                    visible={alertConfig.visible}
+                    type={alertConfig.type}
+                    title={alertConfig.title}
+                    message={alertConfig.message}
+                    onClose={() => {
+                        setAlertConfig((prev) => ({ ...prev, visible: false }));
+                        if (alertConfig.onConfirm) {
+                            alertConfig.onConfirm();
+                        }
+                    }}
+                />
+
                 {/* Adding the touchable without feedback tag */}
                 <TouchableOpacity onPress={Keyboard.dismiss} activeOpacity={1}>
                     {/* Added Scroll View so the content can scroll when the keyboard is open */}
