@@ -1,6 +1,16 @@
 # This gitignore was created by Engr. Mbonu Chinedum for ignoring files 
 # in the specifed repository explicitly 
 
+# Notebooks models 
+notebooks/plant_vlm_best.keras
+notebooks/plant_vlm_final.keras
+
+# Backend models 
+/backend/machineLearning/models
+/backend/machineLearning/models/
+backend/machineLearning/models/
+backend/machineLearning/models
+
 # dependencies for the mobileapp directory 
 mobileapp/node_modules/
 /mobileapp/node_modules/

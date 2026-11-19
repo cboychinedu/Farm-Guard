@@ -1,12 +1,20 @@
+# Importing the necessary modules 
 from transformers import pipeline 
 from PIL import Image 
 import io
+import os 
 
+# Setting the path to the model directory 
+modelPath = os.path.sep.join(["machineLearning", "models"])
+modelPath = os.path.sep.join([modelPath, "local_tinyclip_model"])
+
+# Creating the class for plant classification
 class PlantClassification:
     def __init__(self):
         self.classifier = pipeline(
             task="zero-shot-image-classification", 
-            model="wkcn/TinyCLIP-ViT-8M-16-Text-3M-YFCC15M", 
+            model=modelPath,
+            local_files_only=True 
             
         )
         
@@ -23,21 +31,21 @@ class PlantClassification:
         ]
         
         # We only care if the plant label wins
-        self.plant_label = self.labels[0]
+        self.plantLabel = self.labels[0]
 
     def isPlantImage(self, raw_bytes: bytes): 
-        pil_image = Image.open(io.BytesIO(raw_bytes)).convert("RGB")
+        pilImage = Image.open(io.BytesIO(raw_bytes)).convert("RGB")
 
         # The model will distribute confidence scores across all 7 labels
-        results = self.classifier(pil_image, candidate_labels=self.labels)
+        results = self.classifier(pilImage, candidate_labels=self.labels)
 
-        top_result = results[0]
+        topResult = results[0]
         
         # If the highest scoring category is our plant description, it is a plant
-        isPlant = top_result["label"] == self.plant_label 
+        isPlant = topResult["label"] == self.plantLabel 
 
         return {
             "isPlant": isPlant,
-            "top_guess": top_result["label"],       # See exactly what the model thought it was
-            "confidence": round(top_result["score"], 4)
+            "topGuess": topResult["label"], 
+            "confidence": round(topResult["score"], 4)
         }
