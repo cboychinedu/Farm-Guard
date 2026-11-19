@@ -6,7 +6,8 @@ class PlantClassification:
     def __init__(self):
         self.classifier = pipeline(
             task="zero-shot-image-classification", 
-            model="wkcn/TinyCLIP-ViT-8M-16-Text-3M-YFCC15M"
+            model="wkcn/TinyCLIP-ViT-8M-16-Text-3M-YFCC15M", 
+            
         )
         
         # 1. Use natural language sentences

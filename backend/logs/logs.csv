@@ -769,3 +769,45 @@
 2026-11-16 10:23:47,286,INFO,/dashboard/,200,0.44
 2026-11-16 10:40:22,619,INFO,POST,/dashboard/,172.20.10.3
 2026-11-16 10:40:23,322,INFO,/dashboard/,200,0.70
+2026-11-16 10:57:12,386,INFO,POST,/dashboard/,172.20.10.3
+2026-11-16 10:57:12,990,INFO,/dashboard/,200,0.60
+2026-11-17 00:10:59,139,WARNING,'[Errno 8] nodename nor servname provided, or not known' thrown while requesting HEAD https://huggingface.co/wkcn/TinyCLIP-ViT-8M-16-Text-3M-YFCC15M/resolve/main/processor_config.json
+2026-11-17 00:10:59,140,WARNING,Retrying in 1s [Retry 1/5].
+2026-11-17 00:11:00,163,WARNING,'[Errno 8] nodename nor servname provided, or not known' thrown while requesting HEAD https://huggingface.co/wkcn/TinyCLIP-ViT-8M-16-Text-3M-YFCC15M/resolve/main/processor_config.json
+2026-11-17 00:11:00,163,WARNING,Retrying in 2s [Retry 2/5].
+2026-11-17 00:11:02,186,WARNING,'[Errno 8] nodename nor servname provided, or not known' thrown while requesting HEAD https://huggingface.co/wkcn/TinyCLIP-ViT-8M-16-Text-3M-YFCC15M/resolve/main/processor_config.json
+2026-11-17 00:11:02,186,WARNING,Retrying in 4s [Retry 3/5].
+2026-11-17 00:11:06,209,WARNING,'[Errno 8] nodename nor servname provided, or not known' thrown while requesting HEAD https://huggingface.co/wkcn/TinyCLIP-ViT-8M-16-Text-3M-YFCC15M/resolve/main/processor_config.json
+2026-11-17 00:11:06,209,WARNING,Retrying in 8s [Retry 4/5].
+2026-11-17 00:13:52,776,WARNING,'[Errno 8] nodename nor servname provided, or not known' thrown while requesting HEAD https://huggingface.co/wkcn/TinyCLIP-ViT-8M-16-Text-3M-YFCC15M/resolve/main/processor_config.json
+2026-11-17 00:13:52,776,WARNING,Retrying in 1s [Retry 1/5].
+2026-11-17 00:13:53,803,WARNING,'[Errno 8] nodename nor servname provided, or not known' thrown while requesting HEAD https://huggingface.co/wkcn/TinyCLIP-ViT-8M-16-Text-3M-YFCC15M/resolve/main/processor_config.json
+2026-11-17 00:13:53,804,WARNING,Retrying in 2s [Retry 2/5].
+2026-11-17 00:13:55,828,WARNING,'[Errno 8] nodename nor servname provided, or not known' thrown while requesting HEAD https://huggingface.co/wkcn/TinyCLIP-ViT-8M-16-Text-3M-YFCC15M/resolve/main/processor_config.json
+2026-11-17 00:13:55,829,WARNING,Retrying in 4s [Retry 3/5].
+2026-11-17 00:13:59,852,WARNING,'[Errno 8] nodename nor servname provided, or not known' thrown while requesting HEAD https://huggingface.co/wkcn/TinyCLIP-ViT-8M-16-Text-3M-YFCC15M/resolve/main/processor_config.json
+2026-11-17 00:13:59,852,WARNING,Retrying in 8s [Retry 4/5].
+2026-11-17 00:14:07,878,WARNING,'[Errno 8] nodename nor servname provided, or not known' thrown while requesting HEAD https://huggingface.co/wkcn/TinyCLIP-ViT-8M-16-Text-3M-YFCC15M/resolve/main/processor_config.json
+2026-11-17 00:14:07,880,WARNING,Retrying in 8s [Retry 5/5].
+2026-11-17 00:14:15,897,WARNING,'[Errno 8] nodename nor servname provided, or not known' thrown while requesting HEAD https://huggingface.co/wkcn/TinyCLIP-ViT-8M-16-Text-3M-YFCC15M/resolve/main/processor_config.json
+2026-11-17 00:14:15,917,WARNING,'[Errno 8] nodename nor servname provided, or not known' thrown while requesting HEAD https://huggingface.co/wkcn/TinyCLIP-ViT-8M-16-Text-3M-YFCC15M/resolve/main/processor_config.json
+2026-11-17 00:14:15,917,WARNING,Retrying in 1s [Retry 1/5].
+2026-11-17 00:14:16,933,WARNING,'[Errno 8] nodename nor servname provided, or not known' thrown while requesting HEAD https://huggingface.co/wkcn/TinyCLIP-ViT-8M-16-Text-3M-YFCC15M/resolve/main/processor_config.json
+2026-11-17 00:14:16,933,WARNING,Retrying in 2s [Retry 2/5].
+2026-11-17 00:14:18,960,WARNING,'[Errno 8] nodename nor servname provided, or not known' thrown while requesting HEAD https://huggingface.co/wkcn/TinyCLIP-ViT-8M-16-Text-3M-YFCC15M/resolve/main/processor_config.json
+2026-11-17 00:14:18,960,WARNING,Retrying in 4s [Retry 3/5].
+2026-11-17 00:14:22,985,WARNING,'[Errno 8] nodename nor servname provided, or not known' thrown while requesting HEAD https://huggingface.co/wkcn/TinyCLIP-ViT-8M-16-Text-3M-YFCC15M/resolve/main/processor_config.json
+2026-11-17 00:14:22,985,WARNING,Retrying in 8s [Retry 4/5].
+2026-11-17 00:14:31,010,WARNING,'[Errno 8] nodename nor servname provided, or not known' thrown while requesting HEAD https://huggingface.co/wkcn/TinyCLIP-ViT-8M-16-Text-3M-YFCC15M/resolve/main/processor_config.json
+2026-11-17 00:14:31,010,WARNING,Retrying in 8s [Retry 5/5].
+2026-11-17 00:14:39,035,WARNING,'[Errno 8] nodename nor servname provided, or not known' thrown while requesting HEAD https://huggingface.co/wkcn/TinyCLIP-ViT-8M-16-Text-3M-YFCC15M/resolve/main/processor_config.json
+2026-11-17 00:14:39,054,WARNING,'[Errno 8] nodename nor servname provided, or not known' thrown while requesting HEAD https://huggingface.co/wkcn/TinyCLIP-ViT-8M-16-Text-3M-YFCC15M/resolve/main/processor_config.json
+2026-11-17 00:14:39,054,WARNING,Retrying in 1s [Retry 1/5].
+2026-11-17 00:14:40,080,WARNING,'[Errno 8] nodename nor servname provided, or not known' thrown while requesting HEAD https://huggingface.co/wkcn/TinyCLIP-ViT-8M-16-Text-3M-YFCC15M/resolve/main/processor_config.json
+2026-11-17 00:14:40,080,WARNING,Retrying in 2s [Retry 2/5].
+2026-11-17 05:50:28,113,WARNING,'[Errno 8] nodename nor servname provided, or not known' thrown while requesting HEAD https://huggingface.co/wkcn/TinyCLIP-ViT-8M-16-Text-3M-YFCC15M/resolve/main/processor_config.json
+2026-11-17 05:50:28,113,WARNING,Retrying in 1s [Retry 1/5].
+2026-11-17 05:50:29,139,WARNING,'[Errno 8] nodename nor servname provided, or not known' thrown while requesting HEAD https://huggingface.co/wkcn/TinyCLIP-ViT-8M-16-Text-3M-YFCC15M/resolve/main/processor_config.json
+2026-11-17 05:50:29,139,WARNING,Retrying in 2s [Retry 2/5].
+2026-11-17 05:50:31,163,WARNING,'[Errno 8] nodename nor servname provided, or not known' thrown while requesting HEAD https://huggingface.co/wkcn/TinyCLIP-ViT-8M-16-Text-3M-YFCC15M/resolve/main/processor_config.json
+2026-11-17 05:50:31,163,WARNING,Retrying in 4s [Retry 3/5].
